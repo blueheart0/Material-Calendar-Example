@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import MomentUtils from "@date-io/moment";
+import { createMuiTheme } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
+import ThemeProvider from "@material-ui/styles/ThemeProvider";
+import moment from "moment";
+import React, { useContext, useRef, useState } from "react";
+import "./App.css";
+import CCDatePicker from "./Component/CCDatePicker";
 
-function App() {
+import { AppContext } from "./Context/AppContext";
+
+const App = () => {
+  const _inputRef = useRef();
+  console.log("_inputRef", _inputRef);
+  const [selectedBetweenDate, setSelectedBetweenDate] = useState([
+    moment(),
+    moment()
+  ]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/*<TextField>TEST</TextField>*/}
+      <Grid container direction={"row"} alignItems={"flex-start"} spacing={5}>
+        <Grid item>
+          <CCDatePicker
+            begin={selectedBetweenDate[0]}
+            end={selectedBetweenDate[1]}
+            onChange={e => setSelectedBetweenDate(e)}
+          />
+        </Grid>
+      </Grid>
     </div>
   );
-}
-
-export default App;
+};
+const WrapApp = props => {
+  const { appContext } = useContext(AppContext);
+  console.log(appContext);
+  return (
+    <ThemeProvider theme={createMuiTheme(appContext.theme)}>
+      <MuiPickersUtilsProvider utils={MomentUtils}>
+        <App {...props} />
+      </MuiPickersUtilsProvider>
+    </ThemeProvider>
+  );
+};
+export default WrapApp;
