@@ -1,7 +1,6 @@
 import { makeStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import PickerToolbar from "@material-ui/pickers/_shared/PickerToolbar";
-import ToolbarButton from "@material-ui/pickers/_shared/ToolbarButton";
 import clsx from "clsx";
 import PropTypes from "prop-types";
 import React from "react";
@@ -9,75 +8,59 @@ import React from "react";
 const useStyle = makeStyles(
   theme => ({
     root: {
-      backgroundColor: theme.palette.secondary.main
+      backgroundColor: theme.palette.secondary.main,
+      width: 310,
+      height: 100
     },
     typography: {
       color: theme.palette.common.white
     },
     toolbarButton: {
+      width: "100%",
       minWidth: "20%",
       minHeight: "30px",
       padding: " 2px",
-      "& .MuiPickersToolbarText-toolbarTxt": {
-        fontWeight: "Bold",
-        fontSize: "20px"
-      }
+      // fontWeight: "Bold",
+      fontSize: "20px",
+      color: theme.palette.common.white
     }
   }),
   { name: "CCBetweenToolbar" }
 );
 const CCBetweenToolbar = props => {
-  const { isLandscape, range, selecting } = props;
+  const { range, selecting } = props;
   const classes = useStyle();
+  const momentDisplayFormat = "MMM D, YYYY";
   return (
-    <PickerToolbar
+    <Grid
       className={clsx(classes.root)}
-      isLandscape={isLandscape || false}
+      container
+      direction={"row"}
+      justify={"space-around"}
+      alignItems={"center"}
     >
-      <Grid container direction={"row"} justify={"space-around"}>
-        <Grid item>
-          <ToolbarButton
-            classes={""}
-            className={clsx(classes.toolbarButton)}
-            label={
-              selecting && selecting[0]
-                ? selecting[0].format("ll")
-                : range && range[0]
-                ? range[0].format("ll")
-                : "Start"
-            }
-            selected={true}
-            size={"normal"}
-            disabled
-          />
-        </Grid>
-        <Grid item>
-          <ToolbarButton
-            classes={""}
-            className={clsx(classes.toolbarButton)}
-            label={"~"}
-            disabled
-            selected={true}
-          />
-        </Grid>
-        <Grid item>
-          <ToolbarButton
-            classes={""}
-            className={clsx(classes.toolbarButton)}
-            label={
-              selecting && selecting[1]
-                ? selecting[1].format("ll")
-                : range && range[1]
-                ? range[1].format("ll")
-                : "End"
-            }
-            selected={true}
-            size={"normal"}
-            disabled
-          />
-        </Grid>
+      <Grid item>
+        <Button className={clsx(classes.toolbarButton)}>
+          {selecting && selecting[0]
+            ? selecting[0].format(momentDisplayFormat)
+            : range && range[0]
+            ? range[0].format(momentDisplayFormat)
+            : "Start"}
+        </Button>
       </Grid>
-    </PickerToolbar>
+      <Grid item>
+        <Button className={clsx(classes.toolbarButton)}>{"~"}</Button>
+      </Grid>
+      <Grid item>
+        <Button className={clsx(classes.toolbarButton)}>
+          {selecting && selecting[1]
+            ? selecting[1].format(momentDisplayFormat)
+            : range && range[1]
+            ? range[1].format(momentDisplayFormat)
+            : "End"}
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 CCBetweenToolbar.propTypes = {

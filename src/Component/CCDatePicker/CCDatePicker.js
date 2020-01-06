@@ -2,9 +2,19 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
 import CCDateBetweenPicker from "./Component/CCDateBetweenPicker";
+import CCDateDayPicker from "./Component/CCDateDayPicker";
 
 const CCDatePicker = props => {
-  return <CCDateBetweenPicker {...props} />;
+  const { type, ...others } = props;
+  switch (type) {
+    case "day":
+      return <CCDateDayPicker {...others} />;
+    case "week":
+    case "between":
+      return <CCDateBetweenPicker {...others} />;
+    default:
+      return <div />;
+  }
 };
 CCDatePicker.propTypes = {
   type: PropTypes.oneOf(["day", "week", "between"]).isRequired,

@@ -2,9 +2,16 @@ import { makeStyles } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import { DatePicker } from "@material-ui/pickers";
 import clsx from "clsx";
-import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useMemo, useState } from "react";
+import {
+  dayIsBetween,
+  isFirstDayOfWeek,
+  isLastDayOfWeek,
+  isSameDay,
+  makeDateClone,
+  sortFunc
+} from "../../Utils/momentUtils";
 import { CCBetweenToolbar } from "./Component/CCBetweenToolbar";
 
 const useStyle = makeStyles(
@@ -76,27 +83,7 @@ const useStyle = makeStyles(
   }),
   { name: "CCDateBetweenPicker" }
 );
-const timeDiff = (x, y) => moment.duration(x.diff(y));
-const dayDiff = (x, y) => x.isSame(y, "days");
-const monthDiff = (x, y) => x.isSame(y, "month");
-const yearDiff = (x, y) => x.isSame(y, "years");
-const isSameDay = (x, y) => dayDiff(x, y) && monthDiff(x, y) && yearDiff(x, y);
-const makeDateClone = date => date.clone();
-const dayIsBetween = (start, end, between) =>
-  start &&
-  end &&
-  between &&
-  between.isSameOrBefore(end, "days") &&
-  between.isSameOrAfter(start, "days");
-const sortFunc = (a, b) => {
-  if (b.isAfter(a, "days")) return -1;
-  if (b.isBefore(a, "days")) return 1;
-  return 0;
-};
-const isFirstDayOfWeek = date =>
-  isSameDay(makeDateClone(date), makeDateClone(date).startOf("week"));
-const isLastDayOfWeek = date =>
-  isSameDay(makeDateClone(date), makeDateClone(date).endOf("week"));
+
 const CCDateBetweenPicker = props => {
   const { begin, end, onChange } = props;
   const [selectedDate, setSelectedDate] = useState([begin, end]);
@@ -128,12 +115,10 @@ const CCDateBetweenPicker = props => {
   const setDateRange = date => {
     let _temp = [...selectingDate];
     _temp.push(date);
-
     setSelectingDate(_temp);
   };
 
   const _onChange = date => {
-    console.log(date);
     setDateRange(date);
   };
   const renderRange = (_date, _selectedDate, _dayInCurrentMonth) => {
@@ -191,7 +176,6 @@ const CCDateBetweenPicker = props => {
 
   return (
     <DatePicker
-      classes={classes}
       onChange={date => {
         if (date) {
           setInnerValue(date);
@@ -205,7 +189,6 @@ const CCDateBetweenPicker = props => {
       autoOk={false}
       openTo={"date"}
       variant={"static"}
-      shouldDisableDate={false}
       views={["year", "date"]}
       ToolbarComponent={props => {
         return (

@@ -13,6 +13,7 @@ import { AppContext } from "./Context/AppContext";
 const App = () => {
   const _inputRef = useRef();
   console.log("_inputRef", _inputRef);
+  const [selectedDayDate, setSelectedDayDate] = useState(moment());
   const [selectedBetweenDate, setSelectedBetweenDate] = useState([
     moment(),
     moment()
@@ -20,9 +21,22 @@ const App = () => {
   return (
     <div className="App">
       {/*<TextField>TEST</TextField>*/}
-      <Grid container direction={"row"} alignItems={"flex-start"} spacing={5}>
+      <Grid
+        container
+        direction={"column"}
+        alignItems={"flex-start"}
+        spacing={5}
+      >
         <Grid item>
           <CCDatePicker
+            type={"day"}
+            begin={selectedDayDate}
+            onChange={e => setSelectedDayDate(e)}
+          />
+        </Grid>
+        <Grid item>
+          <CCDatePicker
+            type={"between"}
             begin={selectedBetweenDate[0]}
             end={selectedBetweenDate[1]}
             onChange={e => setSelectedBetweenDate(e)}
