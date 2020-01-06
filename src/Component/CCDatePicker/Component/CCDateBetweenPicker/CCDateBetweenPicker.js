@@ -122,9 +122,7 @@ const CCDateBetweenPicker = props => {
     setDateRange(date);
   };
   const renderRange = (_date, _selectedDate, _dayInCurrentMonth) => {
-    let dateClone = makeDateClone(_date);
-    // let selectedDateClone = makeDateClone(_selectedDate);
-
+    const dateClone = makeDateClone(_date);
     const isFirstDay = isSameDay(dateClone, sortedSelectedDate[0]);
     const isLastDay = isSameDay(dateClone, sortedSelectedDate[1]);
     const isBetweenDay = dayIsBetween(...sortedSelectedDate, dateClone);
