@@ -1,1 +1,1 @@
-export { CCDayToolBar, CCBetweenToolbar } from "./CCBetweenToolbar";
+export { default as CCBetweenToolbar } from "./CCBetweenToolbar";

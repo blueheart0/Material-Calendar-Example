@@ -1,61 +1,194 @@
 import MomentUtils from "@date-io/moment";
 import { createMuiTheme } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import ThemeProvider from "@material-ui/styles/ThemeProvider";
 import moment from "moment";
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useState } from "react";
 import "./App.css";
-import CCDatePicker from "./Component/CCDatePicker";
+import {
+  CCDatePicker,
+  CCDatePickerDialog,
+  CCDatePickerPopover
+} from "./Component";
 
 import { AppContext } from "./Context/AppContext";
 
 const App = () => {
-  const _inputRef = useRef();
-  console.log("_inputRef", _inputRef);
   const [selectedDayDate, setSelectedDayDate] = useState(moment());
   const [selectedWeekDate, setSelectedWeekDate] = useState(moment());
   const [selectedBetweenDate, setSelectedBetweenDate] = useState([
     moment(),
     moment()
   ]);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event, param) => {
+    console.log(event.currentTarget.id);
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   return (
-    <div className="App">
-      {/*<TextField>TEST</TextField>*/}
-      <Grid
-        container
-        direction={"column"}
-        alignItems={"flex-start"}
-        spacing={5}
-      >
-        <Grid item>
-          <CCDatePicker
-            type={"week"}
-            begin={selectedWeekDate}
-            onChange={e => {
-              console.log("onChange", e);
-              console.log("onChange", e[0]);
-              setSelectedWeekDate(e[0]);
-            }}
-          />
+    <>
+      <Grid container direction={"row"}>
+        <Grid
+          container
+          item
+          direction={"column"}
+          alignItems={"center"}
+          spacing={5}
+          xs={6}
+        >
+          <Grid item>
+            <CCDatePicker
+              type={"day"}
+              begin={selectedDayDate}
+              onChange={e => setSelectedDayDate(e)}
+            />
+          </Grid>
+          <Grid item>
+            <CCDatePicker
+              type={"week"}
+              begin={selectedWeekDate}
+              onChange={e => {
+                setSelectedWeekDate(e[0]);
+              }}
+            />
+          </Grid>
+
+          <Grid item>
+            <CCDatePicker
+              type={"between"}
+              begin={selectedBetweenDate[0]}
+              end={selectedBetweenDate[1]}
+              onChange={e => {
+                console.log("onChange", e);
+                setSelectedBetweenDate(e);
+              }}
+            />
+          </Grid>
         </Grid>
-        <Grid item>
-          <CCDatePicker
-            type={"day"}
-            begin={selectedDayDate}
-            onChange={e => setSelectedDayDate(e)}
-          />
-        </Grid>
-        <Grid item>
-          <CCDatePicker
-            type={"between"}
-            begin={selectedBetweenDate[0]}
-            end={selectedBetweenDate[1]}
-            onChange={e => setSelectedBetweenDate(e)}
-          />
+        <Grid
+          container
+          item
+          direction={"column"}
+          alignItems={"center"}
+          spacing={5}
+          xs={6}
+        >
+          <Grid item>
+            <Button
+              id={"pDay"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Day Popover
+            </Button>
+            <Button
+              id={"pWeek"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Week Popover
+            </Button>
+            <Button
+              id={"pBetween"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Between Popover
+            </Button>
+            <CCDatePickerPopover
+              open={Boolean(anchorEl) && anchorEl.id === "pDay"}
+              anchorEl={anchorEl}
+              onClose={handleClose}
+              type={"day"}
+              begin={selectedDayDate}
+              onChange={e => setSelectedDayDate(e)}
+            />
+            <CCDatePickerPopover
+              open={Boolean(anchorEl) && anchorEl.id === "pWeek"}
+              anchorEl={anchorEl}
+              type={"week"}
+              onClose={handleClose}
+              begin={selectedWeekDate}
+              onChange={e => {
+                setSelectedWeekDate(e[0]);
+              }}
+            />
+            <CCDatePickerPopover
+              open={Boolean(anchorEl) && anchorEl.id === "pBetween"}
+              anchorEl={anchorEl}
+              type={"between"}
+              onClose={handleClose}
+              begin={selectedBetweenDate[0]}
+              end={selectedBetweenDate[1]}
+              onChange={e => setSelectedBetweenDate(e)}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              id={"dDay"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Day Dialog
+            </Button>
+            <Button
+              id={"dWeek"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Week Dialog
+            </Button>
+            <Button
+              id={"dBetween"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              Between Dialog
+            </Button>
+            <CCDatePickerDialog
+              open={Boolean(anchorEl) && anchorEl.id === "dDay"}
+              onClose={handleClose}
+              type={"day"}
+              begin={selectedDayDate}
+              onChange={e => setSelectedDayDate(e)}
+            />
+            <CCDatePickerDialog
+              open={Boolean(anchorEl) && anchorEl.id === "dWeek"}
+              type={"week"}
+              onClose={handleClose}
+              begin={selectedWeekDate}
+              onChange={e => {
+                setSelectedWeekDate(e[0]);
+              }}
+            />
+            <CCDatePickerDialog
+              open={Boolean(anchorEl) && anchorEl.id === "dBetween"}
+              type={"between"}
+              onClose={handleClose}
+              begin={selectedBetweenDate[0]}
+              end={selectedBetweenDate[1]}
+              onChange={e => {
+                console.log("onChange", e);
+                setSelectedBetweenDate(e);
+              }}
+            />
+          </Grid>
         </Grid>
       </Grid>
-    </div>
+    </>
   );
 };
 const WrapApp = props => {
