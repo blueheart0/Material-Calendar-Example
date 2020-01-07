@@ -20,7 +20,6 @@ const useStyle = makeStyles(
       minWidth: "20%",
       minHeight: "30px",
       padding: " 2px",
-      // fontWeight: "Bold",
       fontSize: "20px",
       color: theme.palette.common.white
     }

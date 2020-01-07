@@ -35,7 +35,6 @@ const useStyle = makeStyles(
 );
 const CCDayToolbar = props => {
   const { selected, setOpenView } = props;
-  // console.log(props);
   const classes = useStyle();
   return (
     <Grid

@@ -88,7 +88,6 @@ const CCDateBetweenPicker = props => {
   const { begin, end, onChange } = props;
   const [selectedDate, setSelectedDate] = useState([begin, end]);
   const [selectingDate, setSelectingDate] = useState([]);
-  // const [innerValue, setInnerValue] = useState(null);
   const sortedSelectedDate = useMemo(() => [...selectedDate].sort(sortFunc), [
     selectedDate
   ]);
