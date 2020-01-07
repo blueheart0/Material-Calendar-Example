@@ -14,6 +14,7 @@ const App = () => {
   const _inputRef = useRef();
   console.log("_inputRef", _inputRef);
   const [selectedDayDate, setSelectedDayDate] = useState(moment());
+  const [selectedWeekDate, setSelectedWeekDate] = useState(moment());
   const [selectedBetweenDate, setSelectedBetweenDate] = useState([
     moment(),
     moment()
@@ -27,6 +28,17 @@ const App = () => {
         alignItems={"flex-start"}
         spacing={5}
       >
+        <Grid item>
+          <CCDatePicker
+            type={"week"}
+            begin={selectedWeekDate}
+            onChange={e => {
+              console.log("onChange", e);
+              console.log("onChange", e[0]);
+              setSelectedWeekDate(e[0]);
+            }}
+          />
+        </Grid>
         <Grid item>
           <CCDatePicker
             type={"day"}

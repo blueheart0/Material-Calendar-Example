@@ -31,11 +31,10 @@ const useStyle = makeStyles(
       color: theme.palette.common.white
     }
   }),
-  { name: "CCDayToolbar" }
+  { name: "CCWeekToolbar" }
 );
-const CCDayToolbar = props => {
-  const { selected, setOpenView } = props;
-  // console.log(props);
+const CCWeekToolbar = props => {
+  const { value, range, setOpenView } = props;
   const classes = useStyle();
   return (
     <Grid
@@ -52,7 +51,7 @@ const CCDayToolbar = props => {
             setOpenView("year");
           }}
         >
-          {selected ? selected.format("YYYY") : "Selected Date"}
+          {value.format("YYYY") + ", " + value.format("wo") + " Week"}
         </Button>
       </Grid>
       <Grid item>
@@ -62,14 +61,15 @@ const CCDayToolbar = props => {
             setOpenView("date");
           }}
         >
-          {selected ? selected.format("ddd,MMM D") : "Selected Date"}
+          {range[0].format("MMM D") + " ~ " + range[1].format("MMM D")}
         </Button>
       </Grid>
     </Grid>
   );
 };
-CCDayToolbar.CCDayToolbar = {
-  selected: PropTypes.instanceOf(moment).isRequired
+CCWeekToolbar.CCDayToolbar = {
+  value: PropTypes.instanceOf(moment).isRequired,
+  range: PropTypes.arrayOf(PropTypes.instanceOf(moment)).isRequired
 };
 
-export default CCDayToolbar;
+export default CCWeekToolbar;
