@@ -3,7 +3,7 @@ import IconButton from "@material-ui/core/IconButton";
 import { DatePicker } from "@material-ui/pickers";
 import clsx from "clsx";
 import PropTypes from "prop-types";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import {
   dayIsBetween,
   isFirstDayOfWeek,
@@ -88,7 +88,7 @@ const CCDateBetweenPicker = props => {
   const { begin, end, onChange } = props;
   const [selectedDate, setSelectedDate] = useState([begin, end]);
   const [selectingDate, setSelectingDate] = useState([]);
-  const [innerValue, setInnerValue] = useState(null);
+  // const [innerValue, setInnerValue] = useState(null);
   const sortedSelectedDate = useMemo(() => [...selectedDate].sort(sortFunc), [
     selectedDate
   ]);
@@ -96,27 +96,23 @@ const CCDateBetweenPicker = props => {
     selectingDate
   ]);
   const classes = useStyle();
-  useEffect(() => {
-    setSelectedDate([begin, end]);
-  }, [begin, end]);
-  useEffect(() => {
-    onChange(selectedDate);
-  }, [selectedDate]);
-  useEffect(() => {
-    onChange(selectedDate);
-  }, [selectedDate]);
+
   useEffect(() => {
     if (selectingDate.length === 2) {
       let _temp = [...selectingDate];
       setSelectedDate(_temp);
       setSelectingDate([]);
+      onChange([..._temp].sort(sortFunc));
     }
-  }, [selectingDate]);
-  const setDateRange = date => {
-    let _temp = [...selectingDate];
-    _temp.push(date);
-    setSelectingDate(_temp);
-  };
+  }, [onChange, selectingDate, sortedSelectedDate]);
+  const setDateRange = useCallback(
+    date => {
+      let _temp = [...selectingDate];
+      _temp.push(date);
+      setSelectingDate(_temp);
+    },
+    [selectingDate]
+  );
 
   const _onChange = date => {
     setDateRange(date);
@@ -174,13 +170,9 @@ const CCDateBetweenPicker = props => {
 
   return (
     <DatePicker
-      onChange={date => {
-        if (date) {
-          setInnerValue(date);
-        }
-      }}
+      onChange={() => {}}
       label="Basic example"
-      value={innerValue}
+      value={sortedSelectedDate[0]}
       animateYearScrolling
       inputVariant={"outlined"}
       renderDay={renderRange}
