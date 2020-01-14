@@ -10,6 +10,7 @@ import {
   CCDatePickerPopover,
   CCTimePicker
 } from "./Component";
+import CCDateTimePicker from "./Component/CCDateTimePicker";
 import CCTimePickerDialog from "./Component/CCTimePickerDialog/CCTimePickerDialog";
 import CCTimePickerPopover from "./Component/CCTimePickerPopover";
 
@@ -45,9 +46,19 @@ const App = () => {
           spacing={5}
           xs={6}
         >
+          <CCDateTimePicker
+            date={selectedTime}
+            onChange={e => {
+              console.log(e);
+              setSelectedTime(e);
+            }}
+          />
           <CCTimePicker
             date={selectedTime}
-            onChange={e => setSelectedTime(e)}
+            onChange={e => {
+              console.log(e);
+              setSelectedTime(e);
+            }}
           />
           {/*  <Grid item>*/}
           {/*    <CCDatePicker*/}

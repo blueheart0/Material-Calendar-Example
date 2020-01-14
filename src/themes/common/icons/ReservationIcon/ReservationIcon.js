@@ -1,0 +1,21 @@
+import React from "react";
+
+const ResevationIcon = props => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="18"
+    height="20"
+    viewBox="0 0 18 20"
+    {...props}
+  >
+    <g fill="none" fillRule="evenodd">
+      <path
+        fill="currentColor"
+        fillRule="nonzero"
+        d="M14 11H9v5h5v-5zM13 0v2H5V0H3v2H2C.89 2 .01 2.9.01 4L0 18a2 2 0 0 0 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2h-1V0h-2zm3 18H2V7h14v11z"
+      />
+      <path d="M-3-1h24v24H-3z" />
+    </g>
+  </svg>
+);
+export default ResevationIcon;

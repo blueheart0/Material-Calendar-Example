@@ -1,6 +1,7 @@
 import { font, palette as commonPalette } from "../common";
 import { default as basicPalette } from "./palette";
 import typography from "./typography";
+import overrides from "../overrides";
 
 const palette = { ...basicPalette, ...commonPalette };
 const theme = {
@@ -8,7 +9,8 @@ const theme = {
   spacing: 8,
   font,
   palette,
-  typography
+  typography,
+  overrides
 };
 
 export default theme;

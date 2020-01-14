@@ -1,8 +1,9 @@
 import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import { MuiPickersContext } from "@material-ui/pickers";
 import clsx from "clsx";
-import React from "react";
+import React, { useContext } from "react";
 
 const useStyle = makeStyles(
   theme => ({
@@ -32,7 +33,10 @@ const useStyle = makeStyles(
   { name: "CCTimeToolbar" }
 );
 const CCTimeToolbar = props => {
-  const { selected, setOpenView } = props;
+  const { selected, setOpenView, onChangeMeridiem } = props;
+  const pickerContext = useContext(MuiPickersContext);
+  // console.log(props);
+
   // const [value, setValue] = useState(date);
   const classes = useStyle();
   // console.log(selected);
@@ -54,7 +58,7 @@ const CCTimeToolbar = props => {
             setOpenView("hours");
           }}
         >
-          {selected ? selected.format("HH") : "Selected Date"}
+          {selected ? selected.format("hh") : "Selected Date"}
         </Button>
       </Grid>
       <Grid item>
@@ -71,6 +75,39 @@ const CCTimeToolbar = props => {
         >
           {selected ? selected.format("mm") : "Selected Date"}
         </Button>
+      </Grid>
+      <Grid item>
+        <Grid container direction={"column"}>
+          <Button
+            className={clsx(classes.toolbarButton)}
+            // size={"small"}
+            aria-selected={selected.format("A") === "AM"}
+            onClick={() => {
+              onChangeMeridiem(
+                pickerContext.mergeDateAndTime(
+                  selected,
+                  selected.clone().add(12, "hours")
+                )
+              );
+            }}
+          >
+            {"AM"}
+          </Button>
+          <Button
+            className={clsx(classes.toolbarButton)}
+            aria-selected={selected.format("A") === "PM"}
+            onClick={() => {
+              onChangeMeridiem(
+                pickerContext.mergeDateAndTime(
+                  selected,
+                  selected.clone().add(12, "hours")
+                )
+              );
+            }}
+          >
+            {"PM"}
+          </Button>
+        </Grid>
       </Grid>
     </Grid>
   );

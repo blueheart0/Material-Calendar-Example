@@ -3,7 +3,7 @@ import { MuiPickersUtilsProvider, TimePicker } from "@material-ui/pickers";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
-import CCTimeToolbar from "./Component/CCTimeToolbar";
+import { CCTimeToolbar } from "./Component";
 
 const CCTimePicker = props => {
   const { onChange, date } = props;
@@ -12,7 +12,7 @@ const CCTimePicker = props => {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <TimePicker
         autoOk
-        ampm={false}
+        ampm={true}
         variant="static"
         openTo="hours"
         value={date}
@@ -21,7 +21,15 @@ const CCTimePicker = props => {
         }}
         minutesStep={1}
         ToolbarComponent={props => {
-          return <CCTimeToolbar {...props} selected={date} />;
+          return (
+            <CCTimeToolbar
+              {...props}
+              selected={date}
+              onChangeMeridiem={e => {
+                onChange(e);
+              }}
+            />
+          );
         }}
       />
     </MuiPickersUtilsProvider>

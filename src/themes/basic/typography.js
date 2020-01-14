@@ -10,31 +10,39 @@ const typography = {
   },
   h2: {
     color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: "29px",
-    letterSpacing: "-0.24px",
-    lineHeight: "32px"
+    fontWeight: "bold",
+    fontSize: 24,
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "normal",
+    lineHeight: "1.33"
   },
   h3: {
     color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: "24px",
-    letterSpacing: "-0.06px",
-    lineHeight: "28px"
+    fontWeight: "bold",
+    fontSize: 20,
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "normal",
+    lineHeight: "normal"
   },
   h4: {
     color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: "20px",
-    letterSpacing: "-0.06px",
-    lineHeight: "24px"
+    fontWeight: "bold",
+    fontSize: 16,
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "normal",
+    lineHeight: "1.33"
   },
   h5: {
     color: palette.text.primary,
-    fontWeight: 500,
-    fontSize: "16px",
-    letterSpacing: "-0.05px",
-    lineHeight: "20px"
+    fontWeight: "bold",
+    fontSize: 14,
+    fontStretch: "normal",
+    fontStyle: "normal",
+    letterSpacing: "normal",
+    lineHeight: "1.71"
   },
   h6: {
     color: palette.text.primary,
@@ -58,25 +66,34 @@ const typography = {
   },
   body1: {
     color: palette.text.primary,
-    fontSize: "14px",
-    letterSpacing: "-0.05px",
-    lineHeight: "21px"
+    fontSize: 14,
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.43",
+    letterSpacing: "normal"
   },
   body2: {
     color: palette.text.secondary,
-    fontSize: "12px",
-    letterSpacing: "-0.04px",
-    lineHeight: "18px"
+    fontSize: 12,
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.33",
+    letterSpacing: "normal"
   },
   button: {
     color: palette.text.primary,
     fontSize: "14px"
   },
   caption: {
-    color: palette.text.secondary,
-    fontSize: "11px",
-    letterSpacing: "0.33px",
-    lineHeight: "13px"
+    color: palette.text.primary,
+    fontSize: 11,
+    fontWeight: "normal",
+    fontStretch: "normal",
+    fontStyle: "normal",
+    lineHeight: "1.45",
+    letterSpacing: "normal"
   },
   overline: {
     color: palette.text.secondary,
