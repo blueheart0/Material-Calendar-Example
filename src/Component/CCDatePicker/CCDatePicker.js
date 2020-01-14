@@ -1,3 +1,5 @@
+import MomentUtils from "@date-io/moment";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
@@ -9,11 +11,23 @@ const CCDatePicker = props => {
   const { type, ...others } = props;
   switch (type) {
     case "day":
-      return <CCDateDayPicker {...others} />;
+      return (
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <CCDateDayPicker {...others} />
+        </MuiPickersUtilsProvider>
+      );
     case "week":
-      return <CCDateWeekPicker {...others} />;
+      return (
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <CCDateWeekPicker {...others} />
+        </MuiPickersUtilsProvider>
+      );
     case "between":
-      return <CCDateBetweenPicker {...others} />;
+      return (
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <CCDateBetweenPicker {...others} />
+        </MuiPickersUtilsProvider>
+      );
     default:
       return <div />;
   }
