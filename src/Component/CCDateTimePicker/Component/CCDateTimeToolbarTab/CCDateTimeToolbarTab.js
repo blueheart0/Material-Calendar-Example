@@ -1,4 +1,4 @@
-import { makeStyles, useTheme } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import Grid from "@material-ui/core/Grid";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
@@ -23,12 +23,12 @@ const useStyle = makeStyles(
 const CCDateTimeToolbarTab = props => {
   const { setOpenView, openView } = props;
   const classes = useStyle();
-  const [value, setValue] = useState(openView);
-  const theme = useTheme();
+  const [value, setValue] = useState(
+    openView === "date" || openView === "hours" ? openView : "date"
+  );
   useEffect(() => {
     setOpenView(value);
-  }, [value]);
-  console.log(props);
+  }, [value, setOpenView]);
   return (
     <Grid container justify={"center"} className={clsx(classes.root)}>
       <Grid item>

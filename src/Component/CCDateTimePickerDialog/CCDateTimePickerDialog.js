@@ -5,7 +5,7 @@ import clsx from "clsx";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import CCTimePicker from "../CCTimePicker";
+import CCDateTimePicker from "../CCDateTimePicker";
 
 const useStyle = makeStyles(
   () => ({
@@ -21,7 +21,7 @@ const useStyle = makeStyles(
   { name: "CCTimePickerDialog" }
 );
 
-const CCTimePickerDialog = props => {
+const CCDateTimePickerDialog = props => {
   const { open, onClose, date, onChange, ...others } = props;
   const [openDialog, setOpenDialog] = useState(open);
   const [last, setLast] = useState(date || moment());
@@ -31,7 +31,7 @@ const CCTimePickerDialog = props => {
   }, [open]);
   return (
     <Dialog open={openDialog} onClose={onClose} {...others}>
-      <CCTimePicker
+      <CCDateTimePicker
         date={date}
         onChange={e => {
           onChange(e);
@@ -66,10 +66,10 @@ const CCTimePickerDialog = props => {
   );
 };
 
-CCTimePickerDialog.propTypes = {
+CCDateTimePickerDialog.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   date: PropTypes.instanceOf(moment).isRequired,
   onChange: PropTypes.func.isRequired
 };
-export default CCTimePickerDialog;
+export default CCDateTimePickerDialog;

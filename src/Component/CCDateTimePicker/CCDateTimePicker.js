@@ -11,7 +11,7 @@ const CCDateTimePicker = props => {
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <DateTimePicker
         autoOk
-        ampm={false}
+        ampm={true}
         variant="static"
         openTo="date"
         value={date}
@@ -22,7 +22,11 @@ const CCDateTimePicker = props => {
         ToolbarComponent={props => {
           return (
             <>
-              <CCDateTimeToolbar {...props} selected={date} />
+              <CCDateTimeToolbar
+                {...props}
+                onChangeMeridiem={onChange}
+                selected={date}
+              />
               <CCDateTimeToolbarTab {...props} />
             </>
           );

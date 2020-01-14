@@ -21,6 +21,20 @@ const useStyle = makeStyles(
       fontSize: "30px",
       color: theme.palette.common.white
     },
+    meridiemButton: {
+      width: "100%",
+      minWidth: "20%",
+      height: "35px",
+      padding: "0 2px",
+      fontWeight: "Bold",
+      fontSize: "25px",
+      color: theme.palette.common.white
+    },
+
+    selected: {
+      color: theme.palette.primary.main
+    },
+
     "@keyframes blink": {
       "0%": { opacity: 0 },
       "50%": { opacity: 0.5 },
@@ -28,6 +42,9 @@ const useStyle = makeStyles(
     },
     timeColon: {
       animation: "$blink .8s linear infinite"
+    },
+    marginRight: {
+      marginRight: 10
     }
   }),
   { name: "CCTimeToolbar" }
@@ -35,14 +52,7 @@ const useStyle = makeStyles(
 const CCTimeToolbar = props => {
   const { selected, setOpenView, onChangeMeridiem } = props;
   const pickerContext = useContext(MuiPickersContext);
-  // console.log(props);
-
-  // const [value, setValue] = useState(date);
   const classes = useStyle();
-  // console.log(selected);
-  // useEffect(() => {
-  //   setValue(date);
-  // }, [date]);
   return (
     <Grid
       className={clsx(classes.root)}
@@ -51,6 +61,40 @@ const CCTimeToolbar = props => {
       justify={"center"}
       alignItems={"center"}
     >
+      <Grid item className={clsx(classes.marginRight)}>
+        <Grid container direction={"column"}>
+          <Button
+            className={clsx(classes.meridiemButton, {
+              [classes.selected]: selected.format("A") === "AM"
+            })}
+            onClick={() => {
+              onChangeMeridiem(
+                pickerContext.mergeDateAndTime(
+                  selected,
+                  selected.clone().add(12, "hours")
+                )
+              );
+            }}
+          >
+            {"AM"}
+          </Button>
+          <Button
+            className={clsx(classes.meridiemButton, {
+              [classes.selected]: selected.format("A") === "PM"
+            })}
+            onClick={() => {
+              onChangeMeridiem(
+                pickerContext.mergeDateAndTime(
+                  selected,
+                  selected.clone().add(12, "hours")
+                )
+              );
+            }}
+          >
+            {"PM"}
+          </Button>
+        </Grid>
+      </Grid>
       <Grid item>
         <Button
           className={clsx(classes.toolbarButton)}
@@ -75,39 +119,6 @@ const CCTimeToolbar = props => {
         >
           {selected ? selected.format("mm") : "Selected Date"}
         </Button>
-      </Grid>
-      <Grid item>
-        <Grid container direction={"column"}>
-          <Button
-            className={clsx(classes.toolbarButton)}
-            // size={"small"}
-            aria-selected={selected.format("A") === "AM"}
-            onClick={() => {
-              onChangeMeridiem(
-                pickerContext.mergeDateAndTime(
-                  selected,
-                  selected.clone().add(12, "hours")
-                )
-              );
-            }}
-          >
-            {"AM"}
-          </Button>
-          <Button
-            className={clsx(classes.toolbarButton)}
-            aria-selected={selected.format("A") === "PM"}
-            onClick={() => {
-              onChangeMeridiem(
-                pickerContext.mergeDateAndTime(
-                  selected,
-                  selected.clone().add(12, "hours")
-                )
-              );
-            }}
-          >
-            {"PM"}
-          </Button>
-        </Grid>
       </Grid>
     </Grid>
   );

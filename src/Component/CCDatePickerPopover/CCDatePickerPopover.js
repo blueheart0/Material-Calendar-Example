@@ -22,7 +22,16 @@ const useStyle = makeStyles(
 );
 
 const CCDatePickerPopover = props => {
-  const { open, onClose, type, begin, end, onChange, ...others } = props;
+  const {
+    open,
+    onClose,
+    type,
+    begin,
+    end,
+    onChange,
+    anchorEl,
+    ...others
+  } = props;
   const [openPopover, setOpenPopover] = useState(open);
   useEffect(() => {
     setOpenPopover(open);
@@ -30,7 +39,12 @@ const CCDatePickerPopover = props => {
   const [last, setLast] = useState(null);
   const classes = useStyle();
   return (
-    <Popover open={openPopover} onClose={onClose} {...others}>
+    <Popover
+      open={openPopover}
+      onClose={onClose}
+      anchorEl={anchorEl || document.body}
+      {...others}
+    >
       <CCDatePicker
         type={type}
         begin={begin}

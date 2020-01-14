@@ -10,7 +10,10 @@ import {
   CCDatePickerPopover,
   CCTimePicker
 } from "./Component";
+import CCDatePicker from "./Component/CCDatePicker";
 import CCDateTimePicker from "./Component/CCDateTimePicker";
+import CCDateTimePickerDialog from "./Component/CCDateTimePickerDialog";
+import CCDateTimePickerPopover from "./Component/CCDateTimePickerPopover";
 import CCTimePickerDialog from "./Component/CCTimePickerDialog/CCTimePickerDialog";
 import CCTimePickerPopover from "./Component/CCTimePickerPopover";
 
@@ -60,34 +63,34 @@ const App = () => {
               setSelectedTime(e);
             }}
           />
-          {/*  <Grid item>*/}
-          {/*    <CCDatePicker*/}
-          {/*      type={"day"}*/}
-          {/*      begin={selectedDayDate}*/}
-          {/*      onChange={e => setSelectedDayDate(e)}*/}
-          {/*    />*/}
-          {/*  </Grid>*/}
-          {/*  <Grid item>*/}
-          {/*    <CCDatePicker*/}
-          {/*      type={"week"}*/}
-          {/*      begin={selectedWeekDate}*/}
-          {/*      onChange={e => {*/}
-          {/*        setSelectedWeekDate(e[0]);*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  </Grid>*/}
+          <Grid item>
+            <CCDatePicker
+              type={"day"}
+              begin={selectedDayDate}
+              onChange={e => setSelectedDayDate(e)}
+            />
+          </Grid>
+          <Grid item>
+            <CCDatePicker
+              type={"week"}
+              begin={selectedWeekDate}
+              onChange={e => {
+                setSelectedWeekDate(e[0]);
+              }}
+            />
+          </Grid>
 
-          {/*  <Grid item>*/}
-          {/*    <CCDatePicker*/}
-          {/*      type={"between"}*/}
-          {/*      begin={selectedBetweenDate[0]}*/}
-          {/*      end={selectedBetweenDate[1]}*/}
-          {/*      onChange={e => {*/}
-          {/*        console.log("onChange", e);*/}
-          {/*        setSelectedBetweenDate(e);*/}
-          {/*      }}*/}
-          {/*    />*/}
-          {/*  </Grid>*/}
+          <Grid item>
+            <CCDatePicker
+              type={"between"}
+              begin={selectedBetweenDate[0]}
+              end={selectedBetweenDate[1]}
+              onChange={e => {
+                console.log("onChange", e);
+                setSelectedBetweenDate(e);
+              }}
+            />
+          </Grid>
         </Grid>
         <Grid
           container
@@ -232,6 +235,43 @@ const App = () => {
             <CCTimePickerPopover
               anchorEl={anchorEl}
               open={Boolean(anchorEl) && anchorEl.id === "pTime"}
+              onClose={handleClose}
+              date={selectedTime}
+              onChange={e => {
+                console.log("onChange", e);
+                setSelectedTime(e);
+              }}
+            />
+          </Grid>
+          <Grid item>
+            <Button
+              id={"dDateTime"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              DateTime Dialog
+            </Button>
+            <CCDateTimePickerDialog
+              open={Boolean(anchorEl) && anchorEl.id === "dDateTime"}
+              onClose={handleClose}
+              date={selectedTime}
+              onChange={e => {
+                console.log("onChange", e);
+                setSelectedTime(e);
+              }}
+            />
+            <Button
+              id={"pDateTime"}
+              onClick={e => {
+                handleClick(e);
+              }}
+            >
+              DateTime Popover
+            </Button>
+            <CCDateTimePickerPopover
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl) && anchorEl.id === "pDateTime"}
               onClose={handleClose}
               date={selectedTime}
               onChange={e => {

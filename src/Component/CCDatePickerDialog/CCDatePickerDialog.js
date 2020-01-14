@@ -6,10 +6,9 @@ import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import CCDatePicker from "../CCDatePicker";
-import CCDatePickerPopover from "../CCDatePickerPopover";
 
 const useStyle = makeStyles(
-  theme => ({
+  () => ({
     root: {},
     button: { fontWeight: "bold" },
     grayButton: {
@@ -78,8 +77,5 @@ CCDatePickerDialog.propTypes = {
   begin: PropTypes.instanceOf(moment).isRequired,
   end: PropTypes.instanceOf(moment),
   onChange: PropTypes.func.isRequired
-};
-CCDatePickerPopover.defaultProps = {
-  anchorEl: document.body
 };
 export default CCDatePickerDialog;

@@ -1,11 +1,11 @@
-import { Dialog, makeStyles } from "@material-ui/core";
+import { makeStyles, Popover } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import DialogActions from "@material-ui/core/DialogActions";
 import clsx from "clsx";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
-import CCTimePicker from "../CCTimePicker";
+import CCDateTimePicker from "../CCDateTimePicker";
 
 const useStyle = makeStyles(
   () => ({
@@ -18,24 +18,26 @@ const useStyle = makeStyles(
       paddingTop: 0
     }
   }),
-  { name: "CCTimePickerDialog" }
+  { name: "CCDatePickerPopover" }
 );
 
-const CCTimePickerDialog = props => {
+const CCDateTimePickerPopover = props => {
   const { open, onClose, date, onChange, ...others } = props;
-  const [openDialog, setOpenDialog] = useState(open);
+  const [openPopover, setOpenPopover] = useState(open);
+  useEffect(() => {
+    setOpenPopover(open);
+  }, [open]);
   const [last, setLast] = useState(date || moment());
   const classes = useStyle();
-  useEffect(() => {
-    setOpenDialog(open);
-  }, [open]);
   return (
-    <Dialog open={openDialog} onClose={onClose} {...others}>
-      <CCTimePicker
+    <Popover open={openPopover} onClose={onClose} {...others}>
+      <CCDateTimePicker
         date={date}
         onChange={e => {
           onChange(e);
           setLast(e);
+          // setOpenDialog(false);
+          // onClose();
         }}
       />
       <DialogActions className={clsx(classes.noPaddingTop)}>
@@ -44,7 +46,7 @@ const CCTimePickerDialog = props => {
           size={"small"}
           className={clsx(classes.button, classes.grayButton)}
           onClick={() => {
-            setOpenDialog(false);
+            setOpenPopover(false);
             onClose();
           }}
         >
@@ -55,21 +57,23 @@ const CCTimePickerDialog = props => {
           size={"small"}
           className={clsx(classes.button)}
           onClick={() => {
-            setOpenDialog(false);
+            setOpenPopover(false);
             onClose(last);
           }}
         >
           확인
         </Button>
       </DialogActions>
-    </Dialog>
+    </Popover>
   );
 };
-
-CCTimePickerDialog.propTypes = {
+CCDateTimePickerPopover.propTypes = {
   open: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   date: PropTypes.instanceOf(moment).isRequired,
   onChange: PropTypes.func.isRequired
 };
-export default CCTimePickerDialog;
+CCDateTimePickerPopover.defaultProps = {
+  anchorEl: document.body
+};
+export default CCDateTimePickerPopover;
