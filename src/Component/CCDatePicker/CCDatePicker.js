@@ -8,24 +8,24 @@ import CCDateDayPicker from "./Component/CCDateDayPicker";
 import CCDateWeekPicker from "./Component/CCDateWeekPicker";
 
 const CCDatePicker = props => {
-  const { type, ...others } = props;
+  const { type, begin, end, ...others } = props;
   switch (type) {
     case "day":
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <CCDateDayPicker {...others} />
+          <CCDateDayPicker begin={begin} {...others} />
         </MuiPickersUtilsProvider>
       );
     case "week":
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <CCDateWeekPicker {...others} />
+          <CCDateWeekPicker begin={begin} {...others} />
         </MuiPickersUtilsProvider>
       );
     case "between":
       return (
         <MuiPickersUtilsProvider utils={MomentUtils}>
-          <CCDateBetweenPicker {...others} />
+          <CCDateBetweenPicker begin={begin} end={end} {...others} />
         </MuiPickersUtilsProvider>
       );
     default:

@@ -23,21 +23,23 @@ const useStyle = makeStyles(
 
 const CCTimePickerPopover = props => {
   const { open, onClose, date, onChange, ...others } = props;
-  const [openPopover, setOpenPopover] = useState(open);
-  useEffect(() => {
-    setOpenPopover(open);
-  }, [open]);
   const [last, setLast] = useState(date || moment());
   const classes = useStyle();
+  useEffect(() => {
+    setLast(date);
+  }, [date]);
   return (
-    <Popover open={openPopover} onClose={onClose} {...others}>
+    <Popover
+      open={open}
+      onClose={() => {
+        onClose();
+      }}
+      {...others}
+    >
       <CCTimePicker
-        date={date}
+        date={last}
         onChange={e => {
-          onChange(e);
           setLast(e);
-          // setOpenDialog(false);
-          // onClose();
         }}
       />
       <DialogActions className={clsx(classes.noPaddingTop)}>
@@ -46,7 +48,6 @@ const CCTimePickerPopover = props => {
           size={"small"}
           className={clsx(classes.button, classes.grayButton)}
           onClick={() => {
-            setOpenPopover(false);
             onClose();
           }}
         >
@@ -57,8 +58,8 @@ const CCTimePickerPopover = props => {
           size={"small"}
           className={clsx(classes.button)}
           onClick={() => {
-            setOpenPopover(false);
-            onClose(last);
+            onChange(last);
+            onClose();
           }}
         >
           확인

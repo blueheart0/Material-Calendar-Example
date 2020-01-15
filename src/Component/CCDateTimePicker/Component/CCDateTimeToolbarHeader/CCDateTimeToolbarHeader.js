@@ -67,8 +67,8 @@ const useStyle = makeStyles(
   }),
   { name: "CCDateTimeToolbar" }
 );
-const CCDateTimeToolbar = props => {
-  const { selected, setOpenView, onChangeMeridiem } = props;
+const CCDateTimeToolbarHeader = props => {
+  const { date, setOpenView, onChange } = props;
   const pickerContext = useContext(MuiPickersContext);
   const classes = useStyle();
   return (
@@ -87,7 +87,7 @@ const CCDateTimeToolbar = props => {
             setOpenView("year");
           }}
         >
-          {selected ? selected.format("YYYY") : "Selected Year"}
+          {date ? date.format("YYYY") : "Selected Year"}
         </Button>
       </Grid>
       <Grid item>
@@ -112,7 +112,7 @@ const CCDateTimeToolbar = props => {
                     setOpenView("date");
                   }}
                 >
-                  {selected ? selected.format("ddd,") : "Selected Week"}
+                  {date ? date.format("ddd,") : "Selected Week"}
                 </Button>
               </Grid>
               <Grid item>
@@ -123,7 +123,7 @@ const CCDateTimeToolbar = props => {
                     setOpenView("month");
                   }}
                 >
-                  {selected ? selected.format("MMM") : "Selected Month"}
+                  {date ? date.format("MMM") : "Selected Month"}
                 </Button>
               </Grid>
               <Grid item>
@@ -134,7 +134,7 @@ const CCDateTimeToolbar = props => {
                     setOpenView("date");
                   }}
                 >
-                  {selected ? selected.format("DD") : "Selected Date"}
+                  {date ? date.format("DD") : "Selected Date"}
                 </Button>
               </Grid>
             </Grid>
@@ -143,13 +143,13 @@ const CCDateTimeToolbar = props => {
             <Grid container direction={"column"}>
               <Button
                 className={clsx(classes.meridiemButton, {
-                  [classes.selected]: selected.format("A") === "AM"
+                  [classes.selected]: date.format("A") === "AM"
                 })}
                 onClick={() => {
-                  onChangeMeridiem(
+                  onChange(
                     pickerContext.mergeDateAndTime(
-                      selected,
-                      selected.clone().add(12, "hours")
+                      date,
+                      date.clone().add(12, "hours")
                     )
                   );
                 }}
@@ -158,13 +158,13 @@ const CCDateTimeToolbar = props => {
               </Button>
               <Button
                 className={clsx(classes.meridiemButton, {
-                  [classes.selected]: selected.format("A") === "PM"
+                  [classes.selected]: date.format("A") === "PM"
                 })}
                 onClick={() => {
-                  onChangeMeridiem(
+                  onChange(
                     pickerContext.mergeDateAndTime(
-                      selected,
-                      selected.clone().add(12, "hours")
+                      date,
+                      date.clone().add(12, "hours")
                     )
                   );
                 }}
@@ -188,7 +188,7 @@ const CCDateTimeToolbar = props => {
                     setOpenView("hours");
                   }}
                 >
-                  {selected ? selected.format("hh") : "Selected Date"}
+                  {date ? date.format("hh") : "Selected Date"}
                 </Button>
               </Grid>
               <Grid item>
@@ -204,7 +204,7 @@ const CCDateTimeToolbar = props => {
                     setOpenView("minutes");
                   }}
                 >
-                  {selected ? selected.format("mm") : "Selected Date"}
+                  {date ? date.format("mm") : "Selected Date"}
                 </Button>
               </Grid>
             </Grid>
@@ -215,4 +215,4 @@ const CCDateTimeToolbar = props => {
   );
 };
 
-export default CCDateTimeToolbar;
+export default CCDateTimeToolbarHeader;

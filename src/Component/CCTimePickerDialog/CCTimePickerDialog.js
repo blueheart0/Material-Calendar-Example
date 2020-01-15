@@ -23,18 +23,16 @@ const useStyle = makeStyles(
 
 const CCTimePickerDialog = props => {
   const { open, onClose, date, onChange, ...others } = props;
-  const [openDialog, setOpenDialog] = useState(open);
   const [last, setLast] = useState(date || moment());
   const classes = useStyle();
   useEffect(() => {
-    setOpenDialog(open);
-  }, [open]);
+    setLast(date);
+  }, [date]);
   return (
-    <Dialog open={openDialog} onClose={onClose} {...others}>
+    <Dialog open={open} onClose={() => onClose()} {...others}>
       <CCTimePicker
-        date={date}
+        date={last}
         onChange={e => {
-          onChange(e);
           setLast(e);
         }}
       />
@@ -44,7 +42,6 @@ const CCTimePickerDialog = props => {
           size={"small"}
           className={clsx(classes.button, classes.grayButton)}
           onClick={() => {
-            setOpenDialog(false);
             onClose();
           }}
         >
@@ -55,8 +52,8 @@ const CCTimePickerDialog = props => {
           size={"small"}
           className={clsx(classes.button)}
           onClick={() => {
-            setOpenDialog(false);
-            onClose(last);
+            onChange(last);
+            onClose();
           }}
         >
           확인

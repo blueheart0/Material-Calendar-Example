@@ -4,24 +4,18 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
-import { ChartIcon } from "../../../../themes/common/icons";
 
 const useStyle = makeStyles(
   theme => ({
     root: {
       backgroundColor: theme.palette.secondary.main,
       width: 310
-      // boxSizing: "border-box"
-    },
-    tab: {
-      // padding: 0,
-      // boxSizing: "border-box"
     }
   }),
   { name: "CCDateTimeToolbarTab" }
 );
 const CCDateTimeToolbarTab = props => {
-  const { setOpenView, openView } = props;
+  const { setOpenView, openView, timeIcon, dateRangeIcon } = props;
   const classes = useStyle();
   const [value, setValue] = useState(
     openView === "date" || openView === "hours" ? openView : "date"
@@ -45,16 +39,8 @@ const CCDateTimeToolbarTab = props => {
             }
           }}
         >
-          <Tab
-            className={clsx(classes.tab)}
-            value={"date"}
-            icon={<ChartIcon color={"#ffffff"} />}
-          />
-          <Tab
-            className={clsx(classes.tab)}
-            value={"hours"}
-            icon={<ChartIcon color={"#ffffff"} />}
-          />
+          <Tab value={"date"} icon={dateRangeIcon} />
+          <Tab value={"hours"} icon={timeIcon} />
         </Tabs>
       </Grid>
     </Grid>

@@ -2,8 +2,6 @@ import { makeStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
-import moment from "moment";
-import PropTypes from "prop-types";
 import React from "react";
 
 const useStyle = makeStyles(
@@ -34,7 +32,7 @@ const useStyle = makeStyles(
   { name: "CCDayToolbar" }
 );
 const CCDayToolbar = props => {
-  const { selected, setOpenView } = props;
+  const { date, setOpenView } = props;
   const classes = useStyle();
   return (
     <Grid
@@ -51,7 +49,7 @@ const CCDayToolbar = props => {
             setOpenView("year");
           }}
         >
-          {selected ? selected.format("YYYY") : "Selected Date"}
+          {date ? date.format("YYYY") : "Selected Date"}
         </Button>
       </Grid>
       <Grid item>
@@ -61,14 +59,11 @@ const CCDayToolbar = props => {
             setOpenView("date");
           }}
         >
-          {selected ? selected.format("ddd,MMM D") : "Selected Date"}
+          {date ? date.format("ddd,MMM D") : "Selected Date"}
         </Button>
       </Grid>
     </Grid>
   );
-};
-CCDayToolbar.CCDayToolbar = {
-  selected: PropTypes.instanceOf(moment).isRequired
 };
 
 export default CCDayToolbar;

@@ -71,9 +71,7 @@ const CCDateDayPicker = props => {
       value={begin}
       onChange={onChange}
       renderDay={renderDay}
-      ToolbarComponent={props => {
-        return <CCDayToolbar {...props} selected={begin} />;
-      }}
+      ToolbarComponent={CCDayToolbar}
     />
   );
 };

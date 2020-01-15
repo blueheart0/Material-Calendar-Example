@@ -50,7 +50,7 @@ const useStyle = makeStyles(
   { name: "CCTimeToolbar" }
 );
 const CCTimeToolbar = props => {
-  const { selected, setOpenView, onChangeMeridiem } = props;
+  const { date, onChange, setOpenView } = props;
   const pickerContext = useContext(MuiPickersContext);
   const classes = useStyle();
   return (
@@ -65,13 +65,13 @@ const CCTimeToolbar = props => {
         <Grid container direction={"column"}>
           <Button
             className={clsx(classes.meridiemButton, {
-              [classes.selected]: selected.format("A") === "AM"
+              [classes.selected]: date.format("A") === "AM"
             })}
             onClick={() => {
-              onChangeMeridiem(
+              onChange(
                 pickerContext.mergeDateAndTime(
-                  selected,
-                  selected.clone().add(12, "hours")
+                  date,
+                  date.clone().add(12, "hours")
                 )
               );
             }}
@@ -80,13 +80,13 @@ const CCTimeToolbar = props => {
           </Button>
           <Button
             className={clsx(classes.meridiemButton, {
-              [classes.selected]: selected.format("A") === "PM"
+              [classes.selected]: date.format("A") === "PM"
             })}
             onClick={() => {
-              onChangeMeridiem(
+              onChange(
                 pickerContext.mergeDateAndTime(
-                  selected,
-                  selected.clone().add(12, "hours")
+                  date,
+                  date.clone().add(12, "hours")
                 )
               );
             }}
@@ -102,7 +102,7 @@ const CCTimeToolbar = props => {
             setOpenView("hours");
           }}
         >
-          {selected ? selected.format("hh") : "Selected Date"}
+          {date ? date.format("hh") : "Selected Date"}
         </Button>
       </Grid>
       <Grid item>
@@ -117,7 +117,7 @@ const CCTimeToolbar = props => {
             setOpenView("minutes");
           }}
         >
-          {selected ? selected.format("mm") : "Selected Date"}
+          {date ? date.format("mm") : "Selected Date"}
         </Button>
       </Grid>
     </Grid>

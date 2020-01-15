@@ -1,36 +1,36 @@
 import MomentUtils from "@date-io/moment";
 import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DateRangeIcon } from "@material-ui/pickers/_shared/icons/DateRangeIcon";
+import { TimeIcon } from "@material-ui/pickers/_shared/icons/TimeIcon";
 import moment from "moment";
 import PropTypes from "prop-types";
 import React from "react";
-import { CCDateTimeToolbar, CCDateTimeToolbarTab } from "./Component";
+import { CCDateTimeToolbar } from "./Component";
+
+const OPEN_TYPE = {
+  DATE: "date",
+  YEAR: "year",
+  MONTH: "month",
+  HOURS: "hours",
+  MINUTES: "minutes"
+};
 
 const CCDateTimePicker = props => {
   const { onChange, date } = props;
+
   return (
     <MuiPickersUtilsProvider utils={MomentUtils}>
       <DateTimePicker
         autoOk
         ampm={true}
         variant="static"
-        openTo="date"
+        openTo={OPEN_TYPE.DATE}
         value={date}
-        onChange={date => {
-          onChange(date);
-        }}
+        onChange={onChange}
         minutesStep={1}
-        ToolbarComponent={props => {
-          return (
-            <>
-              <CCDateTimeToolbar
-                {...props}
-                onChangeMeridiem={onChange}
-                selected={date}
-              />
-              <CCDateTimeToolbarTab {...props} />
-            </>
-          );
-        }}
+        ToolbarComponent={CCDateTimeToolbar}
+        timeIcon={<TimeIcon htmlColor={"#ffffff"} />}
+        dateRangeIcon={<DateRangeIcon htmlColor={"#ffffff"} />}
       />
     </MuiPickersUtilsProvider>
   );

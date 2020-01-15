@@ -20,17 +20,7 @@ const CCTimePicker = props => {
           onChange(date);
         }}
         minutesStep={1}
-        ToolbarComponent={props => {
-          return (
-            <CCTimeToolbar
-              {...props}
-              selected={date}
-              onChangeMeridiem={e => {
-                onChange(e);
-              }}
-            />
-          );
-        }}
+        ToolbarComponent={CCTimeToolbar}
       />
     </MuiPickersUtilsProvider>
   );
